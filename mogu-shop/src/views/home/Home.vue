@@ -6,6 +6,8 @@
         </nav-bar>
         <!-- 轮播图 -->
         <home-swiper :banners="banners"></home-swiper>
+        <!-- 推荐商品 -->
+        <recom-view :recommends='recommends'></recom-view>
 
     </div>
 </template>
@@ -13,6 +15,7 @@
 <script>
     //导入页面组件
     import HomeSwiper from "./childComps/HomeSwiper";
+    import RecomView from './childComps/RecomView'
 
     //导入公共文件
     import NavBar from "@/components/common/navbar/NavBar";
@@ -25,7 +28,8 @@
         name: "Home",
         components: {
             NavBar,
-            HomeSwiper
+            HomeSwiper,
+            RecomView
         },
         data() {
             return {
