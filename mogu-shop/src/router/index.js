@@ -1,26 +1,25 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Router from 'vue-router'
 
-Vue.use(VueRouter)
+Vue.use(Router)
+
+//懒加载 点击路由才会加载响应模块的js 提高用户体验
+const Home = () => import('../views/home/Home')
+const Category = () => import('../views/category/Category')
+const Cart = () => import('../views/cart/Cart')
+const Profile = () => import('../views/profile/Profile')
+const Detail = () => import('../views/detail/Detail')
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+  { path:'/', name:'index', redirect:'/home'},
+  { path: '/home', name:'Home', component:Home},
+  { path: '/category', name:'Catrgory', component:Category},
+  { path: '/cart', name: 'Cart', component: Cart},
+  { path: '/profile', name:'Profile', component:Profile},
+  { path: '/detail/:id', name:'Detail', component:Detail}
 ]
 
-const router = new VueRouter({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
