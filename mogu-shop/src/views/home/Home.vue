@@ -7,17 +7,13 @@
         <!-- 轮播图 -->
         <home-swiper :banners="banners"></home-swiper>
         <!-- 推荐商品 -->
-        <recom-view :recommends='recommends'></recom-view>
+        <recom-view :recommends="recommends"></recom-view>
         <!-- 流行商品 -->
         <feature-view></feature-view>
-        <div>123</div>
-        <div>123</div>
-        <div>123</div>
-        <div>123</div>
-        <div>123</div>
-        <div>123</div>
-        <div>123</div>
-
+        <!-- 副导航栏 -->
+        <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
+        <!-- 商品展示 -->
+        <goods-list :goods="showGoods"></goods-list>
     </div>
 </template>
 
@@ -28,11 +24,16 @@
     import FeatureView from './childComps/FeatureView';
 
     //导入公共文件
-    import NavBar from "components/common/navbar/NavBar";
+    import NavBar from "@/components/common/navbar/NavBar";
+    import tabControl from '@/components/content/tabControl/tabControl'
+    import GoodsList from '@/components/content/goods/GoodsList'
 
     //导入函数 
-    import { getHomeMultidata } from "network/home";
-   
+    import {
+        getHomeMultidata,
+        getHomeGoods
+    } from "network/home";
+
 
     export default {
         name: "Home",
@@ -40,24 +41,74 @@
             NavBar,
             HomeSwiper,
             RecomView,
-            FeatureView
+            FeatureView,
+            tabControl,
+            GoodsList
         },
         data() {
             return {
                 banners: [],
                 recommends: [],
+                goods: {
+                    'pop': {
+                        page: 0,
+                        list: []
+                    },
+                    'new': {
+                        page: 0,
+                        list: []
+                    },
+                    'sell': {
+                        page: 0,
+                        list: []
+                    }
+                },
+                currentType: 'pop'
             };
         },
         created() {
+            //请求轮播图数据
             this.getHomeMultidata();
+
+            //请求商品数据
+            this.getHomeGoods('pop');
+            this.getHomeGoods('new');
+            this.getHomeGoods('sell');
+        },
+        computed: {
+            showGoods() {
+                return this.goods[this.currentType].list
+            }
         },
         methods: {
+            //事件监听相关方法
+            tabClick(index) {
+                switch (index) {
+                    case 0:
+                        this.currentType = 'pop'
+                        break
+                    case 1:
+                        this.currentType = 'new'
+                        break
+                    case 2:
+                        this.currentType = 'sell'
+                        break
+                }
+            },
+            //网络请求相关方法
             getHomeMultidata() {
                 getHomeMultidata().then((res) => {
                     this.banners = res.data.banner.list;
                     this.recommends = res.data.recommend.list;
                 });
             },
+            getHomeGoods(type) {
+                const page = this.goods[type].page + 1
+                getHomeGoods(type, page).then(res => {
+                    this.goods[type].list.push(...res.data.list)
+                    this.goods[type].page += 1
+                })
+            }
         },
     };
 </script>
@@ -66,6 +117,7 @@
     #home {
         padding-top: 44px;
     }
+
     .home-nav {
         background-color: var(--color-tint);
         color: #fff;
@@ -73,6 +125,12 @@
         top: 0;
         left: 0;
         width: 100%;
+        z-index: 1;
+    }
+
+    .tab-control {
+        position: sticky;
+        top: 44px;
         z-index: 1;
     }
 </style>
