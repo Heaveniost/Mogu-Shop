@@ -24,7 +24,7 @@
     data() {
       return {
         scroll: null,
-        message: '哈哈哈'
+        message: '测试消息'
       }
     },
 

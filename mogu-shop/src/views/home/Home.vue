@@ -4,7 +4,7 @@
         <nav-bar class="home-nav">
             <div slot="center">蘑菇街</div>
         </nav-bar>
-        <scroll class="content">
+        <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
             <!-- 轮播图 -->
             <home-swiper :banners="banners"></home-swiper>
             <!-- 推荐商品 -->
@@ -16,14 +16,17 @@
             <!-- 商品展示 -->
             <goods-list :goods="showGoods"></goods-list>
         </scroll>
+        <back-top @click.native="backTop" v-show="isShowBackTop"></back-top>
+
     </div>
 </template>
 
 <script>
     //导入页面组件
-    import HomeSwiper from "./childComps/HomeSwiper";
-    import RecomView from './childComps/RecomView';
-    import FeatureView from './childComps/FeatureView';
+    import HomeSwiper from "./childComps/HomeSwiper"
+    import RecomView from './childComps/RecomView'
+    import FeatureView from './childComps/FeatureView'
+    import BackTop from '@/components/content/backTop/BackTop'
 
     //导入公共文件
     import NavBar from "@/components/common/navbar/NavBar";
@@ -47,7 +50,8 @@
             FeatureView,
             tabControl,
             GoodsList,
-            Scroll
+            Scroll,
+            BackTop
         },
         data() {
             return {
@@ -67,7 +71,8 @@
                         list: []
                     }
                 },
-                currentType: 'pop'
+                currentType: 'pop',
+                isShowBackTop: false
             };
         },
         created() {
@@ -112,6 +117,14 @@
                     this.goods[type].list.push(...res.data.list)
                     this.goods[type].page += 1
                 })
+            },
+            //回到顶部
+            backTop() {
+                const a = this.$refs.scroll.scrollTo(0, 0)
+            },
+            //回到顶部按钮的显示与隐藏
+            contentScroll(position){
+                this.isShowBackTop = (-position.y) > 1000
             }
         },
     };
@@ -139,6 +152,7 @@
         top: 44px;
         z-index: 1;
     }
+
     .content {
         /* height: 400px; */
         overflow: hidden;
