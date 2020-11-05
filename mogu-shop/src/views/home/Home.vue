@@ -4,16 +4,18 @@
         <nav-bar class="home-nav">
             <div slot="center">蘑菇街</div>
         </nav-bar>
-        <!-- 轮播图 -->
-        <home-swiper :banners="banners"></home-swiper>
-        <!-- 推荐商品 -->
-        <recom-view :recommends="recommends"></recom-view>
-        <!-- 流行商品 -->
-        <feature-view></feature-view>
-        <!-- 副导航栏 -->
-        <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
-        <!-- 商品展示 -->
-        <goods-list :goods="showGoods"></goods-list>
+        <scroll class="content">
+            <!-- 轮播图 -->
+            <home-swiper :banners="banners"></home-swiper>
+            <!-- 推荐商品 -->
+            <recom-view :recommends="recommends"></recom-view>
+            <!-- 流行商品 -->
+            <feature-view></feature-view>
+            <!-- 副导航栏 -->
+            <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
+            <!-- 商品展示 -->
+            <goods-list :goods="showGoods"></goods-list>
+        </scroll>
     </div>
 </template>
 
@@ -27,6 +29,7 @@
     import NavBar from "@/components/common/navbar/NavBar";
     import tabControl from '@/components/content/tabControl/tabControl'
     import GoodsList from '@/components/content/goods/GoodsList'
+    import Scroll from '@/components/common/scroll/Scroll'
 
     //导入函数 
     import {
@@ -43,7 +46,8 @@
             RecomView,
             FeatureView,
             tabControl,
-            GoodsList
+            GoodsList,
+            Scroll
         },
         data() {
             return {
@@ -116,6 +120,8 @@
 <style scoped>
     #home {
         padding-top: 44px;
+        height: 100vh;
+        position: relative;
     }
 
     .home-nav {
@@ -132,5 +138,14 @@
         position: sticky;
         top: 44px;
         z-index: 1;
+    }
+    .content {
+        /* height: 400px; */
+        overflow: hidden;
+        position: absolute;
+        top: 44px;
+        bottom: 49px;
+        left: 0;
+        right: 0;
     }
 </style>

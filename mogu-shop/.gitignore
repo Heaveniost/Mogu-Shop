@@ -2,7 +2,7 @@
 node_modules
 /dist
 note
-
+src/network
 
 # local env files
 .env.local
