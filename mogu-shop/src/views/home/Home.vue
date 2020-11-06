@@ -85,6 +85,12 @@
             this.getHomeGoods('new');
             this.getHomeGoods('sell');
         },
+        mounted() {
+            this.$bus.$on('itemImageLoad', () => {
+                this.$refs.scroll.refresh()
+            })
+
+        },
         computed: {
             showGoods() {
                 return this.goods[this.currentType].list
