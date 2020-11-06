@@ -78,7 +78,8 @@
                 currentType: 'pop',
                 isShowBackTop: false,
                 tabOffsetTop: 0,
-                isTabFixed: false
+                isTabFixed: false,
+                saveY: 0
             };
         },
         created() {
@@ -101,6 +102,14 @@
             showGoods() {
                 return this.goods[this.currentType].list
             }
+        },
+        activated(){
+            this.$refs.scroll.scrollTo(0, this.saveY, 0)
+            this.$refs.scroll.refresh() //有可能出现无法滚动或回到顶部的bug，所以最好刷新一下 
+        },
+        deactivated(){
+            // 记录离开时的状态
+            this.saveY = this.$refs.scroll.getScrollY()
         },
         methods: {
             //事件监听相关方法
@@ -155,7 +164,7 @@
             //计算tabControl的位置
             swiperImageLoad(){
                 this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
-                console.log(this.tabOffsetTop)
+                // console.log(this.tabOffsetTop)
             }
         },
     };
