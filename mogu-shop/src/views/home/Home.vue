@@ -4,7 +4,8 @@
         <nav-bar class="home-nav">
             <div slot="center">蘑菇街</div>
         </nav-bar>
-        <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+        <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" 
+                :pull-up-load="true" @pullingUp="loadMore">
             <!-- 轮播图 -->
             <home-swiper :banners="banners"></home-swiper>
             <!-- 推荐商品 -->
@@ -116,6 +117,8 @@
                 getHomeGoods(type, page).then(res => {
                     this.goods[type].list.push(...res.data.list)
                     this.goods[type].page += 1
+                    //完成上拉加载更多
+                    this.$refs.scroll.finishPullUp()
                 })
             },
             //回到顶部
@@ -125,6 +128,10 @@
             //回到顶部按钮的显示与隐藏
             contentScroll(position){
                 this.isShowBackTop = (-position.y) > 1000
+            },
+            //上拉加载更多
+            loadMore(){
+                this.getHomeGoods(this.currentType)
             }
         },
     };

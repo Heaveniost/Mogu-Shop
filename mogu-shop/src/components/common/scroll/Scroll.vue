@@ -48,6 +48,7 @@
       if (this.pullUpLoad) {
         this.scroll.on('pullingUp', () => {
           this.$emit('pullingUp')
+          // console.log('daodile')
         })
       }
     },
