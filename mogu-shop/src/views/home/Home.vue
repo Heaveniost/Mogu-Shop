@@ -4,16 +4,18 @@
         <nav-bar class="home-nav">
             <div slot="center">蘑菇街</div>
         </nav-bar>
+        <tab-control class="tab-control" :titles="['流行','新款','精选']"
+                @tabClick="tabClick" ref="tabControl1" v-show="isTabFixed" ></tab-control>
         <scroll class="content" ref="scroll" :probe-type="3" @scroll="contentScroll" 
                 :pull-up-load="true" @pullingUp="loadMore">
             <!-- 轮播图 -->
-            <home-swiper :banners="banners"></home-swiper>
+            <home-swiper :banners="banners" @swiperImageLoad="swiperImageLoad"></home-swiper>
             <!-- 推荐商品 -->
             <recom-view :recommends="recommends"></recom-view>
             <!-- 流行商品 -->
             <feature-view></feature-view>
             <!-- 副导航栏 -->
-            <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
+            <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl"></tab-control>
             <!-- 商品展示 -->
             <goods-list :goods="showGoods"></goods-list>
         </scroll>
@@ -74,7 +76,9 @@
                     }
                 },
                 currentType: 'pop',
-                isShowBackTop: false
+                isShowBackTop: false,
+                tabOffsetTop: 0,
+                isTabFixed: false
             };
         },
         created() {
@@ -135,11 +139,21 @@
             },
             //回到顶部按钮的显示与隐藏
             contentScroll(position){
+                // 1. 判断backTop是否显示
                 this.isShowBackTop = (-position.y) > 1000
+
+                // 2. 决定tab-control是否吸顶
+                this.isTabFixed = (-position.y) > this.tabOffsetTop
+
             },
             //上拉加载更多
             loadMore(){
                 this.getHomeGoods(this.currentType)
+            },
+            //计算tabControl的位置
+            swiperImageLoad(){
+                this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+                console.log(this.tabOffsetTop)
             }
         },
     };
@@ -147,7 +161,7 @@
 
 <style scoped>
     #home {
-        padding-top: 44px;
+        /* padding-top: 44px; */
         height: 100vh;
         position: relative;
     }
@@ -155,21 +169,20 @@
     .home-nav {
         background-color: var(--color-tint);
         color: #fff;
-        position: fixed;
+        /*在使用浏览器原生滚动时才需要这些样式  */
+        /* position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 1;
+        z-index: 1; */
     }
 
     .tab-control {
-        position: sticky;
-        top: 44px;
-        z-index: 1;
+        position: relative;
+        z-index: 3;
     }
 
     .content {
-        /* height: 400px; */
         overflow: hidden;
         position: absolute;
         top: 44px;
