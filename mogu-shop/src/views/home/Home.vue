@@ -15,7 +15,7 @@
             <!-- 流行商品 -->
             <feature-view></feature-view>
             <!-- 副导航栏 -->
-            <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl"></tab-control>
+            <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2"></tab-control>
             <!-- 商品展示 -->
             <goods-list :goods="showGoods"></goods-list>
         </scroll>
@@ -116,6 +116,8 @@
                         this.currentType = 'sell'
                         break
                 }
+                this.$refs.tabControl1.currentIndex = index
+                this.$refs.tabControl2.currentIndex = index
             },
             //网络请求相关方法
             getHomeMultidata() {
@@ -152,7 +154,7 @@
             },
             //计算tabControl的位置
             swiperImageLoad(){
-                this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+                this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
                 console.log(this.tabOffsetTop)
             }
         },
