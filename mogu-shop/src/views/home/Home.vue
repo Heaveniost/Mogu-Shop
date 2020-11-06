@@ -40,6 +40,7 @@
         getHomeMultidata,
         getHomeGoods
     } from "network/home";
+    import { debounce } from "@/common/utils"
 
 
     export default {
@@ -86,8 +87,9 @@
             this.getHomeGoods('sell');
         },
         mounted() {
+            const refresh = debounce(this.$refs.scroll.refresh, 50)
             this.$bus.$on('itemImageLoad', () => {
-                this.$refs.scroll.refresh()
+                refresh()
             })
 
         },
