@@ -43,6 +43,7 @@
         getHomeGoods
     } from "network/home";
     import { debounce } from "@/common/utils"
+    import { mixin } from "@/common/mixin" 
 
 
     export default {
@@ -79,9 +80,10 @@
                 isShowBackTop: false,
                 tabOffsetTop: 0,
                 isTabFixed: false,
-                saveY: 0
+                saveY: 0,
             };
         },
+        mixins: [ mixin ],
         created() {
             //请求轮播图数据
             this.getHomeMultidata();
@@ -92,10 +94,10 @@
             this.getHomeGoods('sell');
         },
         mounted() {
-            const refresh = debounce(this.$refs.scroll.refresh, 50)
-            this.$bus.$on('itemImageLoad', () => {
-                refresh()
-            })
+            // const refresh = debounce(this.$refs.scroll.refresh, 50)
+            // this.$bus.$on('itemImageLoad', () => {
+            //     refresh()
+            // })
 
         },
         computed: {
@@ -110,6 +112,8 @@
         deactivated(){
             // 记录离开时的状态
             this.saveY = this.$refs.scroll.getScrollY()
+            this.$bus.$off('itemImageLoad', this.itemListener)
+            // console.log('主页面事件销毁')
         },
         methods: {
             //事件监听相关方法

@@ -29,16 +29,9 @@
     import DetailBottomBar from './childComps/DetailBottomBar'
     import Scroll from "@/components/common/scroll/Scroll";
 
-    import {
-        getRecommend
-    } from "@/network/detail";
-
-    import {
-        getDetail,
-        Goods,
-        Shop,
-        GoodsParam
-    } from "@/network/detail";
+    import { getRecommend } from "@/network/detail";
+    import { getDetail,Goods,Shop,GoodsParam } from "@/network/detail";
+    import { mixin } from "@/common/mixin" 
 
     export default {
         name: "Detail",
@@ -53,7 +46,7 @@
                 images: [],
                 desc: "",
                 commentInfo: {},
-                recommendList: [],
+                recommendList: []
             };
         },
         components: {
@@ -69,11 +62,15 @@
             DetailBottomBar,
             Scroll,
         },
+        mixins: [ mixin ],
         created() {
             this.getDetailData();
             this._getRecommend();
         },
-
+        destroyed(){
+            this.$bus.$off('itemImageLoad', this.itemListener)
+            // console.log('详情页事件销毁')
+        },
         methods: {
             imageLoad: function () {
                 this.$refs.scroll.refresh();
