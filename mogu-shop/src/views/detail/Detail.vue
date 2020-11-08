@@ -3,6 +3,8 @@
         <detail-navbar class="detail-nav"></detail-navbar>
         <scroll class="content" ref="scroll">
             <detail-swiper :top-images="topImages"></detail-swiper>
+            <div>{{ $store.state.carList.length }}</div>
+
             <detail-base-info :goods="goods"></detail-base-info>
             <detail-shop-info :shop="shop"></detail-shop-info>
             <!-- <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"></detail-goods-info> -->
@@ -12,7 +14,8 @@
             <goods-list :goods="recommendList"></goods-list>
             <!-- <detail-recommend-info :recommen-list="recommendList"></detail-recommend-info> -->
         </scroll>
-        <detail-bottom-bar @blur="addToCar"></detail-bottom-bar>
+        <!-- <detail-bottom-bar @blur="addToCar"></detail-bottom-bar> -->
+        <detail-bottom-bar @addCart="addToCar"></detail-bottom-bar>
     </div>
 </template>
 
@@ -123,6 +126,7 @@
                 });
             },
             addToCar() {
+                // 1. 获取购物车需要展示的信息 
                 const obj = {}
                 obj.id = this.id;
                 obj.imgURL = this.topImages[0]
@@ -130,6 +134,9 @@
                 obj.desc = this.goods.desc;
                 obj.newPrice = this.goods.nowPrice;
                 console.log('加到购物车')
+
+                // 2. 将商品添加到购物车里
+                this.$store.commit('addCart', obj)
             }
         },
     };
