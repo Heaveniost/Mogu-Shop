@@ -33,7 +33,10 @@
 		name: "DetailCommentInfo",
     props: {
 		  commentInfo: {
-		    type: Object,
+        type: Object,
+        default(){
+          return {}
+        }
       }
     },
     filters: {
