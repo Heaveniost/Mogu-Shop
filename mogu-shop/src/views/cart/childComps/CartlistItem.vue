@@ -1,16 +1,15 @@
 <template>
     <div id="shop-item">
         <div class="item-selector">
-            <!-- <check-button @click.native="checkClick" :is-checked="product.checked"></check-button> -->
-            <!-- <button @click.native="checkClick" :is-checked="product.checked"></button> -->
+            <check-button :is-selected="product.isSelected" @click.native="selectItem"></check-button>
         </div>
         <div class="item-img">
             <img :src="product.img" alt="商品图片">
-        </div>
+        </div> 
         <div class="item-info">
             <div class="item-title">{{product.title}}</div>
             <div class="item-desc">商品描述: {{product.desc}}</div>
-            <div class="info-bottom">
+            <div class="info-bottom"> 
                 <div class="item-price left">¥{{product.price}}</div>
                 <div class="item-count right">x{{product.count}}</div>
             </div>
@@ -19,14 +18,24 @@
 </template>
 
 <script>
+    import checkButton from '@/components/content/checkButton/checkButton'
+
     export default {
         name: 'CartlistItem',
+        components: {
+            checkButton
+        },
         props: {
             product: {
                 type: Object,
                 default () {
                     return {}
                 }
+            }
+        },
+        methods: {
+            selectItem() {
+                this.product.isSelected = !this.product.isSelected
             }
         }
     }

@@ -23,6 +23,7 @@ const store = new Vuex.Store({
             } else {
                 console.log('不存在，添加')
                 payload.count = 1
+                payload.isSelected = true //储存购物车中的商品是否被选中的状态
                 state.cartList.push(payload)
             }
             
