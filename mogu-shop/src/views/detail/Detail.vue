@@ -1,10 +1,9 @@
 <template>
     <div id="detail">
         <detail-navbar class="detail-nav"></detail-navbar>
+        <!-- <div>{{ $store.state.cartList}}</div> -->
         <scroll class="content" ref="scroll">
             <detail-swiper :top-images="topImages"></detail-swiper>
-            <div>{{ $store.state.carList.length }}</div>
-
             <detail-base-info :goods="goods"></detail-base-info>
             <detail-shop-info :shop="shop"></detail-shop-info>
             <!-- <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad"></detail-goods-info> -->
@@ -133,10 +132,11 @@
                 obj.title = this.goods.title
                 obj.desc = this.goods.desc;
                 obj.newPrice = this.goods.nowPrice;
-                console.log('加到购物车')
+                // console.log('加到购物车')
 
                 // 2. 将商品添加到购物车里
                 this.$store.commit('addCart', obj)
+                // console.log(this.$store.state.cartList)
             }
         },
     };
@@ -157,5 +157,8 @@
 
     .content {
         height: calc(100% - 44px);
+    }
+    p{
+        width: 80%;
     }
 </style>
