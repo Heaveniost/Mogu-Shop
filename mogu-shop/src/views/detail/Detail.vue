@@ -128,10 +128,10 @@
                 // 1. 获取购物车需要展示的信息 
                 const obj = {}
                 obj.id = this.id;
-                obj.imgURL = this.topImages[0]
+                obj.img = this.topImages[0]
                 obj.title = this.goods.title
                 obj.desc = this.goods.desc;
-                obj.newPrice = this.goods.nowPrice;
+                obj.price = this.goods.realPrice;
                 // console.log('加到购物车')
 
                 // 2. 将商品添加到购物车里

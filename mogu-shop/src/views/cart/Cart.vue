@@ -1,30 +1,39 @@
 <template>
     <div>
+        <nav-bar class="navbar">
+            <div slot="center">购物车({{ cartLength }})</div>
+        </nav-bar>
+        <!-- 商品汇总 -->
+        <cart-list></cart-list>
+        <!-- 底部汇总 -->
         <h1>cart</h1>
-        <p @click="changeName">changeName</p>
-        <p>shuju: {{ this.$store.state.cartList }}</p>
     </div>
 </template>
 
 <script>
-export default {
-    name: 'Cart',
-    // mounted(){
-    //     console.log(this.$store.state.carList)
-    // },
-    // activated(){
-    //     console.log(this.$store.state.carList)
-    // },
-    methods: {
-        changeName(){
-            // this.$store.commit('changeName');
-            console.log(this.$store.state.name)
-            console.log(this.$store.state.cartList)
+    import NavBar from '@/components/common/navbar/NavBar'
+    import CartList from './childComps/CartList'
+
+    export default {
+        name: 'Cart',
+        components: {
+            NavBar,
+            CartList
+        },
+        computed: {
+            cartLength() {
+                return this.$store.state.cartList.length
+            }
+        },
+        methods: {
+
         }
     }
-}
 </script>
 
 <style scoped>
-
+    .navbar {
+        background-color: var(--color-tint);
+        color: #fff;
+    }
 </style>
