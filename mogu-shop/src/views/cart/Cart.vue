@@ -15,6 +15,8 @@
     import CartList from './childComps/CartList'
     import CartBottomBar from './childComps/CartBottomBar'
 
+    import { mapGetters } from 'vuex'
+
     export default {
         name: 'Cart',
         components: {
@@ -23,9 +25,7 @@
             CartBottomBar
         },
         computed: {
-            cartLength() {
-                return this.$store.state.cartList.length
-            }
+            ...mapGetters(['cartLength', 'cartList'])
         },
         methods: {
 
