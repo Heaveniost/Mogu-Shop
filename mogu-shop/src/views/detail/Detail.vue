@@ -31,9 +31,18 @@
     import DetailBottomBar from './childComps/DetailBottomBar'
     import Scroll from "@/components/common/scroll/Scroll";
 
-    import { getRecommend } from "@/network/detail";
-    import { getDetail,Goods,Shop,GoodsParam } from "@/network/detail";
-    import { mixin } from "@/common/mixin" 
+    import {
+        getRecommend
+    } from "@/network/detail";
+    import {
+        getDetail,
+        Goods,
+        Shop,
+        GoodsParam
+    } from "@/network/detail";
+    import {
+        mixin
+    } from "@/common/mixin"
 
     export default {
         name: "Detail",
@@ -64,12 +73,12 @@
             DetailBottomBar,
             Scroll,
         },
-        mixins: [ mixin ],
+        mixins: [mixin],
         created() {
             this.getDetailData();
             this._getRecommend();
         },
-        destroyed(){
+        destroyed() {
             this.$bus.$off('itemImageLoad', this.itemListener)
             // console.log('详情页事件销毁')
         },
@@ -135,8 +144,9 @@
                 // console.log('加到购物车')
 
                 // 2. 将商品添加到购物车里
-                this.$store.commit('addCart', obj)
                 // console.log(this.$store.state.cartList)
+                // this.$store.commit('addCart', obj)
+                this.$store.dispatch('addCart', obj)
             }
         },
     };
@@ -158,7 +168,8 @@
     .content {
         height: calc(100% - 44px);
     }
-    p{
+
+    p {
         width: 80%;
     }
 </style>
