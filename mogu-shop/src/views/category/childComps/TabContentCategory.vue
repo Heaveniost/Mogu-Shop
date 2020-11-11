@@ -1,0 +1,59 @@
+<template>
+  <div class="subcontent">
+    <div class="item" v-for="(item, index) in subcategories" :key="index">
+      <a :href="item.link">
+        <img class="item-img" :src="item.image" alt="">
+        <div class="item-text">{{item.title}}</div>
+      </a>
+    </div>
+  </div>
+
+</template>
+
+<script>
+  import GridView from 'components/common/gridView/GridView'
+
+  export default {
+    name: "TabContentCategory",
+    components: {
+      GridView
+    },
+    props: {
+      subcategories: {
+        type: Array,
+        default () {
+          return []
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .subcontent {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .item {
+    width: 90px;
+  }
+  .panel img {
+    width: 100%;
+  }
+
+  .item {
+    text-align: center;
+    font-size: 12px;
+    margin-right: 0px;
+  }
+
+  .item-img {
+    width: 80%;
+  }
+
+  .item-text {
+    margin-top: 15px;
+  }
+</style>
