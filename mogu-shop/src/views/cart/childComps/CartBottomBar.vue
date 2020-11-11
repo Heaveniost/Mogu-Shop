@@ -1,26 +1,30 @@
 <template>
-    <div class="bottom-bar">
-      <div class="check-content">
-        <!-- <check-button :is-checked="isSelectAll" class="check-button" @click.native="checkClick"/> -->
-        <check-button  class="check-button" />
-        <span>全选</span>
-      </div>
-
-      <div class="price">
-        <!-- 合计：{{totalPrice}} -->
-        合计：**
-      </div>
-
-      <!-- <div class="calculate" @click="calcClick"> -->
-      <div class="calculate" >
-        <!-- 去计算({{checkLength}}) -->
-        结算
-      </div>
+  <div class="bottom-bar">
+    <div class="check-content">
+      <!-- <check-button :is-checked="isSelectAll" class="check-button" 
+          @click.native="checkClick"/> -->
+      <check-button :isSelected="isSelectAll" class="check-button" />
+      <span>全选</span>
     </div>
+
+    <div class="price">
+      <!-- 合计：{{totalPrice}} -->
+      合计：**
+    </div>
+
+    <!-- <div class="calculate" @click="calcClick"> -->
+    <div class="calculate">
+      <!-- 去计算({{checkLength}}) -->
+      结算
+    </div>
+  </div>
 </template>
 
 <script>
   import checkButton from 'components/content/checkButton/checkButton'
+  import {
+    mapGetters
+  } from 'vuex'
 
   export default {
     name: "CartBottomBar",
@@ -28,10 +32,19 @@
       checkButton
     },
     computed: {
-
+      ...mapGetters(['cartList']),
+      isSelectAll() {
+        if (this.cartList.length === 0) return false
+        for (let item of this.cartList) {
+          if (!item.isSelected) {
+            return false
+          }
+          return true
+        }
+      }
     },
     methods: {
-
+      
     }
   }
 </script>
@@ -77,5 +90,4 @@
     border-radius: 20px;
     border-right: 15px;
   }
-
 </style>

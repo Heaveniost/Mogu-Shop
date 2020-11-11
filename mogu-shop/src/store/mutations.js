@@ -10,6 +10,7 @@ export default {
         payload.count++
     },
     [ADD_TO_CART](state, payload) {
+        payload.isSelected = false
         state.cartList.push(payload)
     }
 }
