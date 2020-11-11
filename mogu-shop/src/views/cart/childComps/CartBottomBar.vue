@@ -8,14 +8,12 @@
     </div>
 
     <div class="price">
-      <!-- 合计：{{totalPrice}} -->
-      合计：**
+      合计: <span class="total">￥{{ totalPrice }}</span>
     </div>
 
     <!-- <div class="calculate" @click="calcClick"> -->
     <div class="calculate">
-      <!-- 去计算({{checkLength}}) -->
-      结算
+      结算({{checkLength}})
     </div>
   </div>
 </template>
@@ -41,6 +39,16 @@
           }
           return true
         }
+      },
+      totalPrice() {
+        return this.cartList.filter(item => {
+          return item.isSelected
+        }).reduce((total, item) => {
+          return total + item.price * item.count
+        }, 0).toFixed(2)
+      },
+      checkLength() {
+        return this.cartList.filter(item => item.isSelected).length
       }
     },
     methods: {
@@ -78,10 +86,13 @@
   }
 
   .price {
-    margin-left: 130px;
+    margin-left: 30px;
     flex: 1;
   }
-
+  .total {
+    font-size: 80%;
+    color: red;
+  }
   .calculate {
     width: 90px;
     text-align: center;
