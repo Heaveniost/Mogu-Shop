@@ -36,8 +36,8 @@
         methods: {
             selectItem() {
                 this.product.isSelected = !this.product.isSelected
-                console.log(this.product)
-                console.log(this.product.isSelected)
+                // console.log(this.product)
+                // console.log(this.product.isSelected)
             }
         }
     }

@@ -1,9 +1,7 @@
 <template>
   <div class="bottom-bar">
     <div class="check-content">
-      <!-- <check-button :is-checked="isSelectAll" class="check-button" 
-          @click.native="checkClick"/> -->
-      <check-button :isSelected="isSelectAll" class="check-button" />
+      <check-button :is-selected="isSelectAll" class="check-button" @click.native="selectItem" />
       <span>全选</span>
     </div>
 
@@ -37,8 +35,8 @@
           if (!item.isSelected) {
             return false
           }
-          return true
         }
+        return true
       },
       totalPrice() {
         return this.cartList.filter(item => {
@@ -52,7 +50,13 @@
       }
     },
     methods: {
-      
+      selectItem() {
+        if (this.isSelectAll) {
+          this.cartList.forEach(item => item.isSelected = false)
+        } else {
+          this.cartList.forEach(item => item.isSelected = true)
+        }
+      }
     }
   }
 </script>
@@ -89,10 +93,12 @@
     margin-left: 30px;
     flex: 1;
   }
+
   .total {
     font-size: 80%;
     color: red;
   }
+
   .calculate {
     width: 90px;
     text-align: center;
