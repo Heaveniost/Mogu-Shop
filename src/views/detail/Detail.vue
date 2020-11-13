@@ -146,11 +146,14 @@
                 // 2. 将商品添加到购物车里
                 // console.log(this.$store.state.cartList)
                 // this.$store.commit('addCart', obj)
-                this.$store.dispatch('addCart', obj)
+                this.$store.dispatch('addCart', obj).then(res => {
+                    this.$toast.show(res, 1500)
+                })
             }
-        },
-    };
+        }
+    }
 </script>
+
 <style scoped>
     #detail {
         position: relative;
