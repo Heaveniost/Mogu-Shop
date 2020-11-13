@@ -1,6 +1,6 @@
 <template>
     <div class="toast" v-show="isShow">
-      <div v-show="show">{{message}}</div>
+      <div v-show="show" class="content">{{message}}</div>
     </div>
 </template>
 
@@ -33,11 +33,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 8px 10px;
 
-    z-index: 99;
-
-    color:white;
-    background-color:rgba(0, 0, 0, .7 );
+    z-index: 99;        
+  }
+  .content {
+    font-size: 12px;
+    padding: 6px 8px;
+    color: red;
+    background-color:rgba(233, 178, 178, 0.7);
   }
 </style>

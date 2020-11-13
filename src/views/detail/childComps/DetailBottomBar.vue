@@ -1,35 +1,38 @@
 <template>
   <div class="bottom-bar">
     <div class="bar-item bar-left">
-      <div>
+      <div @click="waitComplete">
         <i class="icon service"></i>
         <span class="text">客服</span>
       </div>
-      <div>
+      <div @click="waitComplete">
         <i class="icon shop"></i>
         <span class="text">店铺</span>
       </div>
-      <div>
+      <div @click="waitComplete">
         <i class="icon select"></i>
         <span class="text">收藏</span>
       </div>
     </div>
     <div class="bar-item bar-right">
       <div class="cart" @click="addToCart">加入购物车</div>
-      <div class="buy">购买</div>
+      <div class="buy" @click="waitComplete">购买</div>
     </div>
   </div>
 </template>
 
 <script>
-	export default {
-		name: "DetailBottomBar",
-        methods: {
-            addToCart() {
-                this.$emit('addCart')
-            }
-        }
-	}
+  export default {
+    name: "DetailBottomBar",
+    methods: {
+      addToCart() {
+        this.$emit('addCart')
+      },
+      waitComplete() {
+        this.$emit('waitComp')
+      }
+    }
+  }
 </script>
 
 <style scoped>
@@ -67,11 +70,11 @@
   }
 
   .bar-left .service {
-    background-position:0 -54px;
+    background-position: 0 -54px;
   }
 
   .bar-left .shop {
-    background-position:0 -98px;
+    background-position: 0 -98px;
   }
 
   .bar-right {

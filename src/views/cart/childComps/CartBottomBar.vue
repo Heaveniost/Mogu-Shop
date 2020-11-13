@@ -9,8 +9,7 @@
       合计: <span class="total">￥{{ totalPrice }}</span>
     </div>
 
-    <!-- <div class="calculate" @click="calcClick"> -->
-    <div class="calculate">
+    <div class="calculate" @click="calClick">
       结算({{checkLength}})
     </div>
   </div>
@@ -56,6 +55,9 @@
         } else {
           this.cartList.forEach(item => item.isSelected = true)
         }
+      },
+      calClick() {
+        this.$toast.show('功能尚未开放，敬请期待', 1500)
       }
     }
   }

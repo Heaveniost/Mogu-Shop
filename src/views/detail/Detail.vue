@@ -13,8 +13,7 @@
             <goods-list :goods="recommendList"></goods-list>
             <!-- <detail-recommend-info :recommen-list="recommendList"></detail-recommend-info> -->
         </scroll>
-        <!-- <detail-bottom-bar @blur="addToCar"></detail-bottom-bar> -->
-        <detail-bottom-bar @addCart="addToCar"></detail-bottom-bar>
+        <detail-bottom-bar @addCart="addToCar" @waitComp="waitComplete"></detail-bottom-bar>
     </div>
 </template>
 
@@ -149,6 +148,9 @@
                 this.$store.dispatch('addCart', obj).then(res => {
                     this.$toast.show(res, 1500)
                 })
+            },
+            waitComplete() {
+                this.$toast.show('功能尚未开放，敬请期待', 1500)
             }
         }
     }

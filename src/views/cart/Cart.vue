@@ -24,6 +24,9 @@
             CartList,
             CartBottomBar
         },
+        created() {
+            this.$toast.show('加入购物车功能已完成，可去商品详情页添加新的数据', 3500)
+        },
         computed: {
             ...mapGetters(['cartLength', 'cartList'])
         },

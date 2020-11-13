@@ -45,7 +45,10 @@
       UserInfo,
       ListView,
       NavBar
-    }
+    },
+    created() {
+            this.$toast.show('此页面为静态页面，功能正在开发中~', 2500)
+        }
   }
 </script>
 
